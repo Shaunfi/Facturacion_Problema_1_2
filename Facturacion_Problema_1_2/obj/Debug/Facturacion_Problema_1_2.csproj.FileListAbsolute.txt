@@ -1,0 +1,11 @@
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.csproj.AssemblyReference.cache
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Presentaciones.FrmFactura.resources
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Presentaciones.FrmPrincipal.resources
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Properties.Resources.resources
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.csproj.GenerateResource.cache
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.csproj.CoreCompileInputs.cache
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\bin\Debug\Facturacion_Problema_1_2.exe.config
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\bin\Debug\Facturacion_Problema_1_2.exe
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\bin\Debug\Facturacion_Problema_1_2.pdb
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.exe
+C:\Users\Rami\source\repos\Facturacion_Problema_1_2\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.pdb
