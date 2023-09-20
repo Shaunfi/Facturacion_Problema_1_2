@@ -46,11 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entidade\AccesoDatos.cs" />
-    <Compile Include="Entidade\Articulos.cs" />
-    <Compile Include="Entidade\Clientes.cs" />
-    <Compile Include="Entidade\DetallesFactura.cs" />
-    <Compile Include="Entidade\Facturas.cs" />
+    <Compile Include="Datos\AccesoDatosDAO.cs" />
+    <Compile Include="Datos\Implementacion\DetallesFacturaDAO.cs" />
+    <Compile Include="Datos\Implementacion\FacturasDAO.cs" />
+    <Compile Include="Datos\Interfaz\IFacturasDAO.cs" />
+    <Compile Include="Datos\Interfaz\IDetallesFactura.cs" />
+    <Compile Include="Entidades\AccesoDatos.cs" />
+    <Compile Include="Entidades\Articulos.cs" />
+    <Compile Include="Entidades\Clientes.cs" />
+    <Compile Include="Entidades\DetallesFactura.cs" />
+    <Compile Include="Entidades\Facturas.cs" />
     <Compile Include="Presentaciones\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +84,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

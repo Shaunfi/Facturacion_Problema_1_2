@@ -58,3 +58,26 @@ AS
 BEGIN
     SELECT * FROM ARTICULOS;
 END
+
+CREATE PROCEDURE SP_INSERTAR_Facturas
+@cod_cliente INT,
+@id_forma_pago INT,
+@nro_factura INT OUTPUT
+AS
+BEGIN
+    INSERT INTO dbo.FACTURACIONES(cod_cliente, fecha, id_forma_pago) VALUES (@cod_cliente, GETDATE(), @id_forma_pago);
+	SET @nro_factura = SCOPE_IDENTITY();
+END
+
+
+CREATE PROCEDURE SP_INSERTAR_Detalle
+@nro_factura INT,
+@id_articulo INT,
+@cantidad INT,
+@pre_unitario MONEY
+AS
+BEGIN
+	INSERT INTO dbo.DETALLES_FACTURA(nro_factura, id_articulo, cantidad, pre_unitario) 
+	VALUES (@nro_factura, @id_articulo, @cantidad, @pre_unitario)
+END
+

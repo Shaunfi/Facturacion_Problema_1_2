@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion_Problema_1_2.Entidades
 {
-    internal class Articulos
+    public class Articulos
     {
         private int idArticulo;
         private string descripcion;
@@ -28,5 +28,6 @@ namespace Facturacion_Problema_1_2.Entidades
 
         public int IdArticulo { get => idArticulo; set => idArticulo = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
+        public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
     }
 }

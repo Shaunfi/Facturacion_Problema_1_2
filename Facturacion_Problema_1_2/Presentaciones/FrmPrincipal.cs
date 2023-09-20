@@ -22,5 +22,10 @@ namespace Facturacion_Problema_1_2.Presentaciones
             FrmFactura frmFactura = new FrmFactura();
             frmFactura.ShowDialog();
         }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

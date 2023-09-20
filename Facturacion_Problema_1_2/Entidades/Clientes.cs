@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion_Problema_1_2.Entidades
 {
-    internal class Clientes
+    public class Clientes
     {
         private int codCliente;
         private string apellido;
