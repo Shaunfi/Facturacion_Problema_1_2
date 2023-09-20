@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion_Problema_1_2.Entidades
 {
-    internal class Facturas
+    public class Facturas
     {
         private int formaPago;
         private DateTime fecha;
@@ -18,6 +18,7 @@ namespace Facturacion_Problema_1_2.Entidades
             this.FormaPago = formaPago;
             this.Fecha = DateTime.Now;
             this.Cliente = cliente;
+            this.LDetalle = new List<DetallesFactura>();
         }
 
         public Facturas()
@@ -25,11 +26,17 @@ namespace Facturacion_Problema_1_2.Entidades
             this.FormaPago = 0;
             this.Fecha = DateTime.Now;
             this.Cliente = null;
+            this.LDetalle = new List<DetallesFactura>();
         }
 
         public int FormaPago { get => formaPago; set => formaPago = value; }
         public DateTime Fecha { get => fecha; set => fecha = value; }
         public Clientes Cliente { get => cliente; set => cliente = value; }
         public List<DetallesFactura> LDetalle { get => lDetalle; set => lDetalle = value; }
+
+        public void QuitarDetalle(int posicion)
+        {
+            LDetalle.RemoveAt(posicion);
+        }
     }
 }
