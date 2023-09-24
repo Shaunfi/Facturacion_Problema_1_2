@@ -55,7 +55,6 @@
     <Compile Include="Datos\Interfaz\IClientesDAO.cs" />
     <Compile Include="Datos\Interfaz\IFacturasDAO.cs" />
     <Compile Include="Datos\Interfaz\IDetallesFactura.cs" />
-    <Compile Include="Entidades\AccesoDatos.cs" />
     <Compile Include="Entidades\Articulos.cs" />
     <Compile Include="Entidades\Clientes.cs" />
     <Compile Include="Entidades\DetallesFactura.cs" />

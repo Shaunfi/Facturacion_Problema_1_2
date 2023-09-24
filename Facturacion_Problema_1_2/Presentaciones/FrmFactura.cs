@@ -1,6 +1,5 @@
 ﻿using Facturacion_Problema_1_2.Datos;
 using Facturacion_Problema_1_2.Datos.Implementacion;
-using Facturacion_Problema_1_2.Entidade;
 using Facturacion_Problema_1_2.Entidades;
 using System;
 using System.Collections.Generic;
@@ -64,21 +63,30 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
             foreach (DetallesFactura df in factura.LDetalle)
             {
-                total += df.Precio;
+                total += df.CalcularPrecio();
             }
             labelTotal.Text = total.ToString();
         }
 
         private bool Validar()
         {
-            if (Convert.ToInt32(cboBoxCliente.SelectedValue) < 0)
+            if (Convert.ToInt32(cboBoxCliente.SelectedIndex) < 0)
+            {
+                MessageBox.Show("No se ha cargado un cliente.", "VALIDACION", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
+            }
 
-            if (Convert.ToInt32(cboBoxArticulo.SelectedValue) < 0)
+            if (Convert.ToInt32(cboBoxArticulo.SelectedIndex) < 0)
+            {
+                MessageBox.Show("No se ha cargado un articulo.", "VALIDACION", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
+            }
 
-            if (Convert.ToInt32(cboBoxFormasPago.SelectedValue) < 0)
-                return false;
+            if (Convert.ToInt32(cboBoxFormasPago.SelectedIndex) < 0)
+            {
+                MessageBox.Show("No se ha cargado una forma de pago.", "VALIDACION", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;   
+            }
 
             return true;
         }
@@ -93,6 +101,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 {
                     if (MessageBox.Show($"Seguro quiere seleccionar el cliente {c.Row.ItemArray[1]} {c.Row.ItemArray[2]} ?", "Confirmar Cliente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Cancel)
                     {
+                        cboBoxCliente.SelectedIndex = -1;
                         return;
                     }
 
@@ -112,45 +121,51 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 {
                     if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1])
                     {
-                        MessageBox.Show("Ya esta repetido autista.", "AUTISTA", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                        return;
+                        if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} al articulo {a.Row.ItemArray[1]} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                        {
+                            
+                            foreach (DetallesFactura df in factura.LDetalle)
+                            {
+                                if (Convert.ToInt32(row.Cells[0].Value) == df.Articulo.IdArticulo) 
+                                {
+                                    df.Cantidad += Convert.ToInt32(numCantidad.Value);
+                                    row.Cells["cIdCantidad"].Value = df.Cantidad;
+                                    row.Cells["cIdPrecio"].Value = $"$ {df.CalcularPrecio()}";
+                                    CalcularTotal();
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
 
-                foreach (DetallesFactura df in factura.LDetalle)
-                {
-                    if (df.Articulo.IdArticulo == Convert.ToInt32(a.Row.ItemArray[0]))
-                    {
-                        MessageBox.Show("Ya esta repetido autista.", "AUTISTA", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                        return;
-                    }
-                }
+                Articulos articulo = new Articulos();
 
-                Articulos articulos = new Articulos();
-
-                articulos.IdArticulo = Convert.ToInt32(a.Row.ItemArray[0]);
-                articulos.Descripcion = a.Row.ItemArray[1].ToString();
-                articulos.PrecioUnitario = Convert.ToDouble(a.Row.ItemArray[2]); ;
+                articulo.IdArticulo = Convert.ToInt32(a.Row.ItemArray[0]);
+                articulo.Descripcion = a.Row.ItemArray[1].ToString();
+                articulo.PrecioUnitario = Convert.ToDouble(a.Row.ItemArray[2]); ;
 
 
                 DetallesFactura detalle = new DetallesFactura();
 
-                detalle.Articulo = articulos;
+                detalle.Articulo = articulo;
                 detalle.Cantidad = Convert.ToInt32(numCantidad.Value);
-                detalle.Precio = Convert.ToDouble(articulos.PrecioUnitario * detalle.Cantidad);
 
                 factura.LDetalle.Add(detalle);
 
-                dgvDetalles.Rows.Add(new object[] { detalle.Articulo.Descripcion, detalle.Cantidad, detalle.Precio, "Quitar" });
+                dgvDetalles.Rows.Add(new object[] { detalle.Articulo.IdArticulo ,detalle.Articulo.Descripcion, detalle.Cantidad, $"$ {detalle.CalcularPrecio()}", "Quitar" });
 
                 CalcularTotal();
-                Limpiar();
             }
         }
 
         private void dgvDetalles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvDetalles.CurrentCell.ColumnIndex == 3)
+            if (dgvDetalles.CurrentCell.ColumnIndex == 4)
             {
                 factura.QuitarDetalle(dgvDetalles.CurrentRow.Index);
                 dgvDetalles.Rows.RemoveAt(dgvDetalles.CurrentRow.Index);
@@ -165,7 +180,19 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 if (MessageBox.Show($"Quiere dar la factura por finalizada ?", "Confirmar Factura", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     factura.FormaPago = Convert.ToInt32(cboBoxFormasPago.SelectedValue);
-                    daoFactura.CrearFactura(factura);
+                    if (daoFactura.CrearFactura(factura))
+                    {
+                        MessageBox.Show("La factura ha sido agregado con exito.", "CONFIRMACION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("La factura ha fallado al agregarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (MessageBox.Show($"Desea salir ?", "Salir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    {
+                        this.Close();
+                    }
                 }
             }
             else
@@ -176,12 +203,15 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Seguro quiere cancelar la factura ?", "FACTURA", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                this.Close();
+            }
         }
 
         private void dgvDetalles_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            if (dgvDetalles.Rows.Count > 0)
+            if (dgvDetalles.Rows.Count == 1)
             {
                 btnConfirmar.Enabled = true;
                 btnCancelar.Enabled = true;

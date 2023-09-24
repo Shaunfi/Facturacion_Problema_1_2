@@ -10,24 +10,25 @@ namespace Facturacion_Problema_1_2.Entidades
     {
         private Articulos articulo;
         private int cantidad;
-        private double precio;
 
-        public DetallesFactura(Articulos articulo, int cantidad, double precio)
+        public DetallesFactura(Articulos articulo, int cantidad)
         {
             this.articulo = articulo;
             this.cantidad = cantidad;
-            this.precio = precio;
         }
 
         public DetallesFactura()
         {
             articulo = null;
             cantidad = 0;
-            precio = 0;
         }
 
         public Articulos Articulo { get => articulo; set => articulo = value; }
         public int Cantidad { get => cantidad; set => cantidad = value; }
-        public double Precio { get => precio; set => precio = value; }
+
+        public double CalcularPrecio()
+        {
+            return articulo.PrecioUnitario * cantidad;
+        }
     }
 }

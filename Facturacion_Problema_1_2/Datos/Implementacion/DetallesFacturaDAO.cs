@@ -22,7 +22,7 @@ namespace Facturacion_Problema_1_2.Datos.Implementacion
                 listParam.Add(new SqlParameter("@nro_factura", factura.NroFactura));
                 listParam.Add(new SqlParameter("@id_articulo", df.Articulo.IdArticulo));
                 listParam.Add(new SqlParameter("@cantidad", df.Cantidad));
-                listParam.Add(new SqlParameter("@pre_unitario", df.Precio));
+                listParam.Add(new SqlParameter("@pre_unitario", df.CalcularPrecio()));
 
                 AccesoDatosDAO.ObtenerInstancia().ProcedureExecuterSinT("SP_INSERTAR_Detalle", listParam, t);
             }
