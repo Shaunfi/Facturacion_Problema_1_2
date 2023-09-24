@@ -31,6 +31,11 @@
             this.cboBoxCliente = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDetalles = new System.Windows.Forms.DataGridView();
+            this.cIdIdArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Acciones = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.cboBoxArticulo = new System.Windows.Forms.ComboBox();
@@ -42,11 +47,6 @@
             this.labelTotal = new System.Windows.Forms.Label();
             this.cboBoxFormasPago = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cIdIdArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIdDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIdCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIdPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Acciones = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
             this.SuspendLayout();
@@ -83,120 +83,10 @@
             this.dgvDetalles.Name = "dgvDetalles";
             this.dgvDetalles.ReadOnly = true;
             this.dgvDetalles.Size = new System.Drawing.Size(456, 150);
-            this.dgvDetalles.TabIndex = 2;
+            this.dgvDetalles.TabIndex = 7;
             this.dgvDetalles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalles_CellContentClick);
             this.dgvDetalles.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvDetalles_RowsAdded);
             this.dgvDetalles.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvDetalles_RowsRemoved);
-            // 
-            // btnConfirmar
-            // 
-            this.btnConfirmar.Location = new System.Drawing.Point(6, 280);
-            this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(75, 38);
-            this.btnConfirmar.TabIndex = 3;
-            this.btnConfirmar.Text = "Confirmar";
-            this.btnConfirmar.UseVisualStyleBackColor = true;
-            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(97, 280);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 38);
-            this.btnCancelar.TabIndex = 3;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // cboBoxArticulo
-            // 
-            this.cboBoxArticulo.FormattingEnabled = true;
-            this.cboBoxArticulo.Location = new System.Drawing.Point(97, 50);
-            this.cboBoxArticulo.Name = "cboBoxArticulo";
-            this.cboBoxArticulo.Size = new System.Drawing.Size(189, 21);
-            this.cboBoxArticulo.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Articulo";
-            // 
-            // numCantidad
-            // 
-            this.numCantidad.Location = new System.Drawing.Point(385, 13);
-            this.numCantidad.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numCantidad.Name = "numCantidad";
-            this.numCantidad.Size = new System.Drawing.Size(77, 20);
-            this.numCantidad.TabIndex = 4;
-            this.numCantidad.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(326, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Cantidad";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(272, 288);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 20);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total $";
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Location = new System.Drawing.Point(329, 50);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(133, 53);
-            this.btnAgregar.TabIndex = 3;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // labelTotal
-            // 
-            this.labelTotal.AutoSize = true;
-            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotal.Location = new System.Drawing.Point(325, 288);
-            this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(19, 20);
-            this.labelTotal.TabIndex = 1;
-            this.labelTotal.Text = "0";
-            // 
-            // cboBoxFormasPago
-            // 
-            this.cboBoxFormasPago.FormattingEnabled = true;
-            this.cboBoxFormasPago.Location = new System.Drawing.Point(97, 87);
-            this.cboBoxFormasPago.Name = "cboBoxFormasPago";
-            this.cboBoxFormasPago.Size = new System.Drawing.Size(189, 21);
-            this.cboBoxFormasPago.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 90);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Forma de Pago";
             // 
             // cIdIdArticulo
             // 
@@ -230,6 +120,116 @@
             this.Acciones.HeaderText = "Acciones";
             this.Acciones.Name = "Acciones";
             this.Acciones.ReadOnly = true;
+            // 
+            // btnConfirmar
+            // 
+            this.btnConfirmar.Location = new System.Drawing.Point(6, 280);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(75, 38);
+            this.btnConfirmar.TabIndex = 5;
+            this.btnConfirmar.Text = "Confirmar";
+            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(97, 280);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 38);
+            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // cboBoxArticulo
+            // 
+            this.cboBoxArticulo.FormattingEnabled = true;
+            this.cboBoxArticulo.Location = new System.Drawing.Point(97, 50);
+            this.cboBoxArticulo.Name = "cboBoxArticulo";
+            this.cboBoxArticulo.Size = new System.Drawing.Size(189, 21);
+            this.cboBoxArticulo.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Articulo";
+            // 
+            // numCantidad
+            // 
+            this.numCantidad.Location = new System.Drawing.Point(385, 13);
+            this.numCantidad.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCantidad.Name = "numCantidad";
+            this.numCantidad.Size = new System.Drawing.Size(77, 20);
+            this.numCantidad.TabIndex = 3;
+            this.numCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(326, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Cantidad";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(272, 288);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 20);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total $";
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(329, 50);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(133, 53);
+            this.btnAgregar.TabIndex = 4;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.AutoSize = true;
+            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotal.Location = new System.Drawing.Point(325, 288);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(19, 20);
+            this.labelTotal.TabIndex = 1;
+            this.labelTotal.Text = "0";
+            // 
+            // cboBoxFormasPago
+            // 
+            this.cboBoxFormasPago.FormattingEnabled = true;
+            this.cboBoxFormasPago.Location = new System.Drawing.Point(97, 87);
+            this.cboBoxFormasPago.Name = "cboBoxFormasPago";
+            this.cboBoxFormasPago.Size = new System.Drawing.Size(189, 21);
+            this.cboBoxFormasPago.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Forma de Pago";
             // 
             // FrmFactura
             // 

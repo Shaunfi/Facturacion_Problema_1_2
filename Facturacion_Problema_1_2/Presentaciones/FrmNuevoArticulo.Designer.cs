@@ -64,7 +64,7 @@
             0});
             this.numPrecio.Name = "numPrecio";
             this.numPrecio.Size = new System.Drawing.Size(71, 20);
-            this.numPrecio.TabIndex = 1;
+            this.numPrecio.TabIndex = 2;
             this.numPrecio.Value = new decimal(new int[] {
             1,
             0,
@@ -87,7 +87,7 @@
             this.lstArticulos.Location = new System.Drawing.Point(201, 12);
             this.lstArticulos.Name = "lstArticulos";
             this.lstArticulos.Size = new System.Drawing.Size(185, 121);
-            this.lstArticulos.TabIndex = 3;
+            this.lstArticulos.TabIndex = 4;
             // 
             // label2
             // 
@@ -138,7 +138,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(12, 139);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(374, 23);
-            this.btnAgregar.TabIndex = 4;
+            this.btnAgregar.TabIndex = 3;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);

@@ -42,7 +42,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(13, 139);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(374, 23);
-            this.btnAgregar.TabIndex = 13;
+            this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -53,7 +53,7 @@
             this.lstClientes.Location = new System.Drawing.Point(202, 12);
             this.lstClientes.Name = "lstClientes";
             this.lstClientes.Size = new System.Drawing.Size(185, 121);
-            this.lstClientes.TabIndex = 12;
+            this.lstClientes.TabIndex = 3;
             // 
             // label5
             // 
@@ -88,14 +88,14 @@
             this.txtBoxApellido.Location = new System.Drawing.Point(57, 44);
             this.txtBoxApellido.Name = "txtBoxApellido";
             this.txtBoxApellido.Size = new System.Drawing.Size(139, 20);
-            this.txtBoxApellido.TabIndex = 5;
+            this.txtBoxApellido.TabIndex = 0;
             // 
             // txtBoxNombre
             // 
             this.txtBoxNombre.Location = new System.Drawing.Point(57, 77);
             this.txtBoxNombre.Name = "txtBoxNombre";
             this.txtBoxNombre.Size = new System.Drawing.Size(139, 20);
-            this.txtBoxNombre.TabIndex = 5;
+            this.txtBoxNombre.TabIndex = 1;
             // 
             // FrmNuevoCliente
             // 
