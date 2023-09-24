@@ -33,7 +33,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
         {
             btnConfirmar.Enabled = false;
             btnCancelar.Enabled = false;
-            CargarComboBox(cboBoxCliente, "cod_cliente", "nom_cliente", "SP_CONSULTAR_TABLA_Clientes");
+            CargarComboBox(cboBoxCliente, "cod_cliente", "nombre_completo", "SP_CONSULTAR_TABLA_Clientes");
             CargarComboBox(cboBoxArticulo, "id_articulo", "descripcion", "SP_CONSULTAR_TABLA_Articulos");
             CargarComboBox(cboBoxFormasPago, "id_forma_pago", "forma_pago", "SP_CONSULTAR_TABLA_FormasPago");
             Limpiar();
@@ -119,27 +119,35 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
                 foreach (DataGridViewRow row in dgvDetalles.Rows)
                 {
-                    if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1])
+                    if (Convert.ToInt32(row.Cells["cIdCantidad"].Value) < 20 && Convert.ToInt32(row.Cells["cIdCantidad"].Value) + Convert.ToInt32(numCantidad.Value) <= 20)
                     {
-                        if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} al articulo {a.Row.ItemArray[1]} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                        if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1])
                         {
-                            
-                            foreach (DetallesFactura df in factura.LDetalle)
+                            if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} unidades al articulo {a.Row.ItemArray[1]} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
                             {
-                                if (Convert.ToInt32(row.Cells[0].Value) == df.Articulo.IdArticulo) 
+
+                                foreach (DetallesFactura df in factura.LDetalle)
                                 {
-                                    df.Cantidad += Convert.ToInt32(numCantidad.Value);
-                                    row.Cells["cIdCantidad"].Value = df.Cantidad;
-                                    row.Cells["cIdPrecio"].Value = $"$ {df.CalcularPrecio()}";
-                                    CalcularTotal();
-                                    return;
+                                    if (Convert.ToInt32(row.Cells[0].Value) == df.Articulo.IdArticulo)
+                                    {
+                                        df.Cantidad += Convert.ToInt32(numCantidad.Value);
+                                        row.Cells["cIdCantidad"].Value = df.Cantidad;
+                                        row.Cells["cIdPrecio"].Value = $"$ {df.CalcularPrecio()}";
+                                        CalcularTotal();
+                                        return;
+                                    }
                                 }
                             }
+                            else
+                            {
+                                return;
+                            }
                         }
-                        else
-                        {
-                            return;
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pueden cargar mas de 20 unidades por un articulo.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
                     }
                 }
 
