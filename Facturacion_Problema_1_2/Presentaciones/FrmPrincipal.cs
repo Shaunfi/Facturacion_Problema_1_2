@@ -19,13 +19,22 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         private void nuevaFacturaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmFactura frmFactura = new FrmFactura();
-            frmFactura.ShowDialog();
+            new FrmFactura().ShowDialog();
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void nuevoArticuloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmNuevoArticulo().ShowDialog();
+        }
+
+        private void nuevoClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmNuevoCliente().ShowDialog();
         }
     }
 }
