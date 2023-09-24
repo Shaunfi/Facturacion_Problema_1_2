@@ -1,4 +1,6 @@
-﻿using Facturacion_Problema_1_2.Entidade;
+﻿using Facturacion_Problema_1_2.Datos;
+using Facturacion_Problema_1_2.Datos.Implementacion;
+using Facturacion_Problema_1_2.Entidade;
 using Facturacion_Problema_1_2.Entidades;
 using System;
 using System.Collections.Generic;
@@ -15,21 +17,23 @@ namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmFactura : Form
     {
-        private AccesoDatos sql;
-
         private Clientes cliente;
 
         private Facturas factura;
+
+        private FacturasDAO daoFactura;
         
         public FrmFactura()
         {
             InitializeComponent();
             factura = new Facturas();
-            sql = new AccesoDatos(@"Data Source=DESKTOP-BGJJ9MM\SQLEXPRESS;Initial Catalog=FACTURACIONES_1_2;Integrated Security=True");
+            daoFactura = new FacturasDAO();
         }
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
+            btnConfirmar.Enabled = false;
+            btnCancelar.Enabled = false;
             CargarComboBox(cboBoxCliente, "cod_cliente", "nom_cliente", "SP_CONSULTAR_TABLA_Clientes");
             CargarComboBox(cboBoxArticulo, "id_articulo", "descripcion", "SP_CONSULTAR_TABLA_Articulos");
             CargarComboBox(cboBoxFormasPago, "id_forma_pago", "forma_pago", "SP_CONSULTAR_TABLA_FormasPago");
@@ -38,7 +42,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         private void CargarComboBox(ComboBox combo, string valorID, string valorDisplay, string nombreSP)
         {
-            DataTable tabla = sql.ProcedureReader(nombreSP);
+            DataTable tabla = AccesoDatosDAO.ObtenerInstancia().ProcedureReader(nombreSP);
 
             combo.DataSource = tabla;
             combo.ValueMember = valorID;
@@ -98,6 +102,8 @@ namespace Facturacion_Problema_1_2.Presentaciones
                     cliente.CodCliente = Convert.ToInt32(c.Row.ItemArray[0]);
                     cliente.Apellido = c.Row.ItemArray[1].ToString();
                     cliente.Nombre = c.Row.ItemArray[2].ToString();
+
+                    factura.Cliente = cliente;
                 }
 
                 DataRowView a = (DataRowView)cboBoxArticulo.SelectedItem;
@@ -138,6 +144,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 dgvDetalles.Rows.Add(new object[] { detalle.Articulo.Descripcion, detalle.Cantidad, detalle.Precio, "Quitar" });
 
                 CalcularTotal();
+                Limpiar();
             }
         }
 
@@ -153,12 +160,41 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            
+            if (factura.LDetalle.Count > 0) 
+            {
+                if (MessageBox.Show($"Quiere dar la factura por finalizada ?", "Confirmar Factura", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    factura.FormaPago = Convert.ToInt32(cboBoxFormasPago.SelectedValue);
+                    daoFactura.CrearFactura(factura);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No puede confirmar la factura sin detalles", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void dgvDetalles_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dgvDetalles.Rows.Count > 0)
+            {
+                btnConfirmar.Enabled = true;
+                btnCancelar.Enabled = true;
+            }
+        }
+
+        private void dgvDetalles_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (dgvDetalles.Rows.Count == 0)
+            {
+                btnConfirmar.Enabled = false;
+                btnCancelar.Enabled = false;
+            }
         }
     }
 }

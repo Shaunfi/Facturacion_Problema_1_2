@@ -103,9 +103,24 @@ namespace Facturacion_Problema_1_2.Datos
         #endregion
 
         #region Executer
-        public void ProcedureExecuter(string nombreSP, List<SqlParameter> listParam)
+        public void ProcedureExecuterSinT(string nombreSP, List<SqlParameter> listParam, SqlTransaction t)
         {
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = cnn;
+            cmd.Transaction = t;
 
+            cmd.CommandText = nombreSP;
+
+            listParam.ForEach((param) => cmd.Parameters.Add(param));
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        public bool ProcedureExecuter(string nombreSP, List<SqlParameter> listParam)
+        {
+            bool resultado = true;
             SqlTransaction t = null;
 
             try
@@ -127,7 +142,9 @@ namespace Facturacion_Problema_1_2.Datos
             {
                 if (t != null)
                 {
+                    resultado = false;
                     t.Rollback();
+                    throw;
                 }
             }
             finally
@@ -137,6 +154,7 @@ namespace Facturacion_Problema_1_2.Datos
                     cnn.Close();
                 }
             }
+            return resultado;
         }
         #endregion
     }

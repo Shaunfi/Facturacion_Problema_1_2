@@ -83,6 +83,8 @@
             this.dgvDetalles.Size = new System.Drawing.Size(456, 150);
             this.dgvDetalles.TabIndex = 2;
             this.dgvDetalles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalles_CellContentClick);
+            this.dgvDetalles.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvDetalles_RowsAdded);
+            this.dgvDetalles.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvDetalles_RowsRemoved);
             // 
             // cIdDescripcion
             // 

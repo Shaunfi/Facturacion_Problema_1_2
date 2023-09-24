@@ -47,8 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\AccesoDatosDAO.cs" />
+    <Compile Include="Datos\Implementacion\ArticulosDAO.cs" />
+    <Compile Include="Datos\Implementacion\ClientesDAO.cs" />
     <Compile Include="Datos\Implementacion\DetallesFacturaDAO.cs" />
     <Compile Include="Datos\Implementacion\FacturasDAO.cs" />
+    <Compile Include="Datos\Interfaz\IArticulosDAO.cs" />
+    <Compile Include="Datos\Interfaz\IClientesDAO.cs" />
     <Compile Include="Datos\Interfaz\IFacturasDAO.cs" />
     <Compile Include="Datos\Interfaz\IDetallesFactura.cs" />
     <Compile Include="Entidades\AccesoDatos.cs" />
@@ -56,11 +60,23 @@
     <Compile Include="Entidades\Clientes.cs" />
     <Compile Include="Entidades\DetallesFactura.cs" />
     <Compile Include="Entidades\Facturas.cs" />
+    <Compile Include="Presentaciones\FrmNuevoArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentaciones\FrmNuevoArticulo.Designer.cs">
+      <DependentUpon>FrmNuevoArticulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentaciones\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentaciones\FrmFactura.Designer.cs">
       <DependentUpon>FrmFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentaciones\FrmNuevoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentaciones\FrmNuevoCliente.Designer.cs">
+      <DependentUpon>FrmNuevoCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentaciones\FrmPrincipal.cs">
       <SubType>Form</SubType>
@@ -72,6 +88,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Presentaciones\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentaciones\FrmNuevoArticulo.resx">
+      <DependentUpon>FrmNuevoArticulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentaciones\FrmNuevoCliente.resx">
+      <DependentUpon>FrmNuevoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentaciones\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>

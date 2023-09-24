@@ -29,5 +29,10 @@ namespace Facturacion_Problema_1_2.Entidades
         public int IdArticulo { get => idArticulo; set => idArticulo = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
+
+        public override string ToString()
+        {
+            return $"{descripcion} | $ {precioUnitario}";
+        }
     }
 }
