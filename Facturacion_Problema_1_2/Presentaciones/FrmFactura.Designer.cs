@@ -31,10 +31,6 @@
             this.cboBoxCliente = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDetalles = new System.Windows.Forms.DataGridView();
-            this.cIdDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIdCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIdPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Acciones = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.cboBoxArticulo = new System.Windows.Forms.ComboBox();
@@ -46,6 +42,11 @@
             this.labelTotal = new System.Windows.Forms.Label();
             this.cboBoxFormasPago = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.cIdIdArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIdPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Acciones = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +74,7 @@
             this.dgvDetalles.AllowUserToDeleteRows = false;
             this.dgvDetalles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cIdIdArticulo,
             this.cIdDescripcion,
             this.cIdCantidad,
             this.cIdPrecio,
@@ -86,35 +88,11 @@
             this.dgvDetalles.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvDetalles_RowsAdded);
             this.dgvDetalles.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvDetalles_RowsRemoved);
             // 
-            // cIdDescripcion
-            // 
-            this.cIdDescripcion.HeaderText = "Descripcion";
-            this.cIdDescripcion.Name = "cIdDescripcion";
-            this.cIdDescripcion.ReadOnly = true;
-            // 
-            // cIdCantidad
-            // 
-            this.cIdCantidad.HeaderText = "Cantidad";
-            this.cIdCantidad.Name = "cIdCantidad";
-            this.cIdCantidad.ReadOnly = true;
-            // 
-            // cIdPrecio
-            // 
-            this.cIdPrecio.HeaderText = "Precio";
-            this.cIdPrecio.Name = "cIdPrecio";
-            this.cIdPrecio.ReadOnly = true;
-            // 
-            // Acciones
-            // 
-            this.Acciones.HeaderText = "Acciones";
-            this.Acciones.Name = "Acciones";
-            this.Acciones.ReadOnly = true;
-            // 
             // btnConfirmar
             // 
             this.btnConfirmar.Location = new System.Drawing.Point(6, 280);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(75, 58);
+            this.btnConfirmar.Size = new System.Drawing.Size(75, 38);
             this.btnConfirmar.TabIndex = 3;
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
@@ -124,7 +102,7 @@
             // 
             this.btnCancelar.Location = new System.Drawing.Point(97, 280);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 58);
+            this.btnCancelar.Size = new System.Drawing.Size(75, 38);
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -177,7 +155,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(328, 318);
+            this.label4.Location = new System.Drawing.Point(272, 288);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 20);
             this.label4.TabIndex = 1;
@@ -197,7 +175,7 @@
             // 
             this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotal.Location = new System.Drawing.Point(381, 318);
+            this.labelTotal.Location = new System.Drawing.Point(325, 288);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(19, 20);
             this.labelTotal.TabIndex = 1;
@@ -220,11 +198,44 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Forma de Pago";
             // 
+            // cIdIdArticulo
+            // 
+            this.cIdIdArticulo.HeaderText = "ID";
+            this.cIdIdArticulo.Name = "cIdIdArticulo";
+            this.cIdIdArticulo.ReadOnly = true;
+            this.cIdIdArticulo.Visible = false;
+            // 
+            // cIdDescripcion
+            // 
+            this.cIdDescripcion.HeaderText = "Descripcion";
+            this.cIdDescripcion.Name = "cIdDescripcion";
+            this.cIdDescripcion.ReadOnly = true;
+            this.cIdDescripcion.Width = 153;
+            // 
+            // cIdCantidad
+            // 
+            this.cIdCantidad.HeaderText = "Cantidad";
+            this.cIdCantidad.Name = "cIdCantidad";
+            this.cIdCantidad.ReadOnly = true;
+            this.cIdCantidad.Width = 60;
+            // 
+            // cIdPrecio
+            // 
+            this.cIdPrecio.HeaderText = "Precio";
+            this.cIdPrecio.Name = "cIdPrecio";
+            this.cIdPrecio.ReadOnly = true;
+            // 
+            // Acciones
+            // 
+            this.Acciones.HeaderText = "Acciones";
+            this.Acciones.Name = "Acciones";
+            this.Acciones.ReadOnly = true;
+            // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 347);
+            this.ClientSize = new System.Drawing.Size(467, 320);
             this.Controls.Add(this.numCantidad);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCancelar);
@@ -265,6 +276,7 @@
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.ComboBox cboBoxFormasPago;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cIdIdArticulo;
         private System.Windows.Forms.DataGridViewTextBoxColumn cIdDescripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn cIdCantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn cIdPrecio;

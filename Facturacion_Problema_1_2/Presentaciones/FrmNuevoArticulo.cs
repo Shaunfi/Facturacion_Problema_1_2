@@ -1,6 +1,5 @@
 ﻿using Facturacion_Problema_1_2.Datos;
 using Facturacion_Problema_1_2.Datos.Implementacion;
-using Facturacion_Problema_1_2.Entidade;
 using Facturacion_Problema_1_2.Entidades;
 using System;
 using System.Collections.Generic;
