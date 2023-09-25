@@ -59,6 +59,12 @@
     <Compile Include="Entidades\Clientes.cs" />
     <Compile Include="Entidades\DetallesFactura.cs" />
     <Compile Include="Entidades\Facturas.cs" />
+    <Compile Include="Presentaciones\FrmBajaFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentaciones\FrmBajaFactura.Designer.cs">
+      <DependentUpon>FrmBajaFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentaciones\FrmNuevoArticulo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentaciones\FrmBajaFactura.resx">
+      <DependentUpon>FrmBajaFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentaciones\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </EmbeddedResource>

@@ -151,7 +151,46 @@ namespace Facturacion_Problema_1_2.Datos
             {
                 if (cnn.State == ConnectionState.Open)
                 {
-                    cnn.Close();
+                    Desconectar();
+                }
+            }
+            return resultado;
+        }
+
+        public bool ProcedureExecuter(string nombreSP, SqlParameter param)
+        {
+            bool resultado = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                Conectar();
+
+                t = cnn.BeginTransaction();
+                cmd.Transaction = t;
+
+                cmd.CommandText = nombreSP;
+
+                cmd.Parameters.Add(param);
+
+                cmd.ExecuteNonQuery();
+
+                t.Commit();
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    resultado = false;
+                    t.Rollback();
+                    throw;
+                }
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                {
+                    Desconectar();
                 }
             }
             return resultado;

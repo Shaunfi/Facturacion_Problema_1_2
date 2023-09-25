@@ -11,6 +11,8 @@ namespace Facturacion_Problema_1_2.Datos.Interfaz
     {
         bool CrearFactura(Facturas factura);
 
+        bool BajaFactura(Facturas factura);
 
+        List<Facturas> ListarFacturas(Clientes cliente, DateTime fecha);
     }
 }

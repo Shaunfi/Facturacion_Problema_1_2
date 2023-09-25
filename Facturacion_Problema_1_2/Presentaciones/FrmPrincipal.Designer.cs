@@ -35,6 +35,7 @@
             this.nuevoArticuloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bajaFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,7 +84,8 @@
             // facturasToolStripMenuItem
             // 
             this.facturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuevaFacturaToolStripMenuItem});
+            this.nuevaFacturaToolStripMenuItem,
+            this.bajaFacturaToolStripMenuItem});
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
             this.facturasToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.facturasToolStripMenuItem.Text = "Facturas";
@@ -91,9 +93,16 @@
             // nuevaFacturaToolStripMenuItem
             // 
             this.nuevaFacturaToolStripMenuItem.Name = "nuevaFacturaToolStripMenuItem";
-            this.nuevaFacturaToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.nuevaFacturaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nuevaFacturaToolStripMenuItem.Text = "Nueva Factura";
             this.nuevaFacturaToolStripMenuItem.Click += new System.EventHandler(this.nuevaFacturaToolStripMenuItem_Click);
+            // 
+            // bajaFacturaToolStripMenuItem
+            // 
+            this.bajaFacturaToolStripMenuItem.Name = "bajaFacturaToolStripMenuItem";
+            this.bajaFacturaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bajaFacturaToolStripMenuItem.Text = "Baja Factura";
+            this.bajaFacturaToolStripMenuItem.Click += new System.EventHandler(this.bajaFacturaToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 
@@ -121,5 +130,6 @@
         private System.Windows.Forms.ToolStripMenuItem nuevaFacturaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoArticuloToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bajaFacturaToolStripMenuItem;
     }
 }

@@ -22,3 +22,4 @@ C:\Users\Rami\Desktop\Proyectos\C#\Windows Form\Segunda Cuatrimestre\Facturacion
 C:\Users\Rami\Desktop\Proyectos\C#\Windows Form\Segunda Cuatrimestre\Facturacion_Problema_1_2 DAO\Facturacion_Problema_1_2\bin\Debug\Facturacion_Problema_1_2.pdb
 C:\Users\Rami\Desktop\Proyectos\C#\Windows Form\Segunda Cuatrimestre\Facturacion_Problema_1_2 DAO\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Presentaciones.FrmNuevoArticulo.resources
 C:\Users\Rami\Desktop\Proyectos\C#\Windows Form\Segunda Cuatrimestre\Facturacion_Problema_1_2 DAO\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Presentaciones.FrmNuevoCliente.resources
+C:\Users\Rami\Desktop\Proyectos\C#\Windows Form\Segunda Cuatrimestre\Facturacion_Problema_1_2 DAO\Facturacion_Problema_1_2\obj\Debug\Facturacion_Problema_1_2.Presentaciones.FrmBajaFactura.resources
