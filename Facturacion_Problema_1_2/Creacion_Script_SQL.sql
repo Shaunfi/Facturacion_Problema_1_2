@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [FACTURACIONES_1_2]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Database [FACTURACIONES_1_2]    Script Date: 25/9/2023 00:36:46 ******/
 CREATE DATABASE [FACTURACIONES_1_2]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,7 +82,7 @@ ALTER DATABASE [FACTURACIONES_1_2] SET QUERY_STORE (OPERATION_MODE = READ_WRITE,
 GO
 USE [FACTURACIONES_1_2]
 GO
-/****** Object:  Table [dbo].[ARTICULOS]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Table [dbo].[ARTICULOS]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,12 +97,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT INTO ARTICULOS(descripcion, pre_unitario) VALUES ('Galletas Pepito x 1U', 100)
-INSERT INTO ARTICULOS(descripcion, pre_unitario) VALUES ('Fideos de Morron x 1U', 100)
-INSERT INTO ARTICULOS(descripcion, pre_unitario) VALUES ('Cerveza Scottish x 6U', 100)
-INSERT INTO ARTICULOS(descripcion, pre_unitario) VALUES ('Cerveza Brahma x 1U', 100)
-GO
-/****** Object:  Table [dbo].[CLIENTES]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Table [dbo].[CLIENTES]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,10 +112,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT INTO CLIENTES VALUES ('Romera', 'Ramiro')
-INSERT INTO CLIENTES VALUES ('Ramunda', 'Masi')
-GO
-/****** Object:  Table [dbo].[DETALLES_FACTURA]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Table [dbo].[DETALLES_FACTURA]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +129,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[FACTURACIONES]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Table [dbo].[FACTURACIONES]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -147,13 +139,14 @@ CREATE TABLE [dbo].[FACTURACIONES](
 	[cod_cliente] [int] NULL,
 	[fecha] [datetime] NULL,
 	[id_forma_pago] [int] NULL,
+	[fecha_baja] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[nro_factura] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[FORMAS_PAGO]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  Table [dbo].[FORMAS_PAGO]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -179,11 +172,21 @@ GO
 ALTER TABLE [dbo].[FACTURACIONES]  WITH CHECK ADD FOREIGN KEY([id_forma_pago])
 REFERENCES [dbo].[FORMAS_PAGO] ([id_forma_pago])
 GO
-INSERT INTO dbo.FORMAS_PAGO VALUES ('Debito')
-INSERT INTO dbo.FORMAS_PAGO VALUES ('Credito')
-INSERT INTO dbo.FORMAS_PAGO VALUES ('Efectivo')
+/****** Object:  StoredProcedure [dbo].[SP_BAJAR_FACTURA]    Script Date: 25/9/2023 00:36:46 ******/
+SET ANSI_NULLS ON
 GO
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA]    Script Date: 23/9/2023 21:19:19 ******/
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_BAJAR_FACTURA]
+@nro_factura INT
+AS
+BEGIN
+	UPDATE FACTURACIONES
+	SET fecha_baja = GETDATE()
+	WHERE nro_factura = @nro_factura
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,7 +201,7 @@ BEGIN
     EXEC sp_executesql @sql
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_Articulos]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_Articulos]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -206,10 +209,11 @@ GO
 CREATE PROCEDURE [dbo].[SP_CONSULTAR_TABLA_Articulos]
 AS
 BEGIN
-    SELECT * FROM ARTICULOS;
+    SELECT * FROM ARTICULOS
+	ORDER BY 2;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_Clientes]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_Clientes]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -217,10 +221,27 @@ GO
 CREATE PROCEDURE [dbo].[SP_CONSULTAR_TABLA_Clientes]
 AS
 BEGIN
-    SELECT * FROM Clientes;
+    SELECT *, ape_cliente + ', ' + nom_cliente 'nombre_completo' FROM Clientes
+	ORDER BY 2;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_FormasPago]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_Facturas]    Script Date: 25/9/2023 00:36:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_CONSULTAR_TABLA_Facturas]
+@cod_cliente INT,
+@fecha DATE
+AS
+BEGIN
+    SELECT * FROM FACTURACIONES
+	WHERE cod_cliente = @cod_cliente 
+	  AND CAST(fecha AS DATE) = @fecha
+	  AND fecha_baja IS NULL;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTAR_TABLA_FormasPago]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -228,10 +249,11 @@ GO
 CREATE PROCEDURE [dbo].[SP_CONSULTAR_TABLA_FormasPago]
 AS
 BEGIN
-    SELECT * FROM FORMAS_PAGO;
+    SELECT * FROM FORMAS_PAGO
+	ORDER BY 2;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_ARTICULO]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_ARTICULO]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -245,7 +267,7 @@ BEGIN
 	VALUES (@descripcion, @pre_unitario)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_CLIENTE]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_CLIENTE]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -259,7 +281,7 @@ BEGIN
 	VALUES (@apellido, @nombre)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_DETALLE]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_DETALLE]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -275,7 +297,7 @@ BEGIN
 	VALUES (@nro_factura, @id_articulo, @cantidad, @pre_unitario)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_Facturas]    Script Date: 23/9/2023 21:19:19 ******/
+/****** Object:  StoredProcedure [dbo].[SP_INSERTAR_Facturas]    Script Date: 25/9/2023 00:36:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
