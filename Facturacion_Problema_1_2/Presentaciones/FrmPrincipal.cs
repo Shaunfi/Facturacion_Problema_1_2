@@ -36,5 +36,10 @@ namespace Facturacion_Problema_1_2.Presentaciones
         {
             new FrmNuevoCliente().ShowDialog();
         }
+
+        private void bajaFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmBajaFactura().ShowDialog();
+        }
     }
 }

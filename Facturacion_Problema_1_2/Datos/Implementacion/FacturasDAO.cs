@@ -15,6 +15,7 @@ namespace Facturacion_Problema_1_2.Datos.Implementacion
     {
         private DetallesFacturaDAO daoDetalles;
 
+
         public bool CrearFactura(Facturas factura)
         {
             daoDetalles = new DetallesFacturaDAO();
@@ -59,8 +60,37 @@ namespace Facturacion_Problema_1_2.Datos.Implementacion
                 }
             }
             return true;
-            
+        }
+        public bool BajaFactura(Facturas factura)
+        {
+            SqlParameter param = new SqlParameter("@nro_factura", factura.NroFactura);
 
+            return AccesoDatosDAO.ObtenerInstancia().ProcedureExecuter("SP_BAJAR_FACTURA", param); ;
+        }
+
+        public List<Facturas> ListarFacturas(Clientes cliente, DateTime fecha)
+        {
+            List<Facturas> listFacturas = new List<Facturas>();
+
+            List<SqlParameter> listParam = new List<SqlParameter>();
+
+            listParam.Add(new SqlParameter("@cod_cliente", cliente.CodCliente));
+            listParam.Add(new SqlParameter("@fecha", fecha.ToString("yyyy/MM/dd")));
+
+
+            DataTable tabla = AccesoDatosDAO.ObtenerInstancia().ProcedureReader("SP_CONSULTAR_TABLA_Facturas", listParam);
+
+            foreach (DataRow row in tabla.Rows )
+            {
+                Facturas f = new Facturas();
+
+                f.NroFactura = Convert.ToInt32(row[0].ToString());
+                f.Fecha = Convert.ToDateTime(row[2].ToString());
+
+                listFacturas.Add(f);
+            }
+
+            return listFacturas;
         }
     }
 }

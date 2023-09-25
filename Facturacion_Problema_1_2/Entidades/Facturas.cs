@@ -42,5 +42,10 @@ namespace Facturacion_Problema_1_2.Entidades
         {
             LDetalle.RemoveAt(posicion);
         }
+
+        public override string ToString()
+        {
+            return $"Nro. Factura: {nroFactura} | Fecha: {fecha.ToString("dd / MM / yyyy")}";
+        }
     }
 }

@@ -119,9 +119,9 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
                 foreach (DataGridViewRow row in dgvDetalles.Rows)
                 {
-                    if (Convert.ToInt32(row.Cells["cIdCantidad"].Value) < 20 && Convert.ToInt32(row.Cells["cIdCantidad"].Value) + Convert.ToInt32(numCantidad.Value) <= 20)
+                    if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1]) 
                     {
-                        if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1])
+                        if (Convert.ToInt32(row.Cells["cIdCantidad"].Value) + Convert.ToInt32(numCantidad.Value) < 20)
                         {
                             if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} unidades al articulo {a.Row.ItemArray[1]} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
                             {
@@ -143,11 +143,11 @@ namespace Facturacion_Problema_1_2.Presentaciones
                                 return;
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se pueden cargar mas de 20 unidades por un articulo.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
+                        else
+                        {
+                            MessageBox.Show("No se pueden cargar mas de 20 unidades por un articulo.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
                     }
                 }
 
