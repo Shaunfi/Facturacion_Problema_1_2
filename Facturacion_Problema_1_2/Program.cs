@@ -1,4 +1,5 @@
-﻿using Facturacion_Problema_1_2.Presentaciones;
+﻿using Facturacion_Problema_1_2.Factory;
+using Facturacion_Problema_1_2.Presentaciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Facturacion_Problema_1_2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPrincipal());
+            Application.Run(new FrmPrincipal(new FabricarServicioImp()));
         }
     }
 }

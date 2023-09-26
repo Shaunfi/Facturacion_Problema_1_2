@@ -54,7 +54,11 @@
     <Compile Include="Datos\Interfaz\IArticulosDAO.cs" />
     <Compile Include="Datos\Interfaz\IClientesDAO.cs" />
     <Compile Include="Datos\Interfaz\IFacturasDAO.cs" />
-    <Compile Include="Datos\Interfaz\IDetallesFactura.cs" />
+    <Compile Include="Datos\Interfaz\IDetallesFacturaDAO.cs" />
+    <Compile Include="Factory\FabricarServicio.cs" />
+    <Compile Include="Factory\FabricarServicioImp.cs" />
+    <Compile Include="Servicio\IServicio.cs" />
+    <Compile Include="Servicio\ServicioDAO.cs" />
     <Compile Include="Entidades\Articulos.cs" />
     <Compile Include="Entidades\Clientes.cs" />
     <Compile Include="Entidades\DetallesFactura.cs" />
@@ -129,5 +133,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

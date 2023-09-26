@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Facturacion_Problema_1_2.Datos.Implementacion
 {
-    public class DetallesFacturaDAO : IDetallesFactura
+    public class DetallesFacturaDAO : IDetallesFacturaDAO
     {
         public void CrearDetalle(Facturas factura, SqlTransaction t)
         {

@@ -1,6 +1,8 @@
 ﻿using Facturacion_Problema_1_2.Datos;
 using Facturacion_Problema_1_2.Datos.Implementacion;
+using Facturacion_Problema_1_2.Datos.Servicio;
 using Facturacion_Problema_1_2.Entidades;
+using Facturacion_Problema_1_2.Factory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,16 +17,16 @@ namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmNuevoArticulo : Form
     {
-        private ArticulosDAO daoArticulos;
+        private IServicio servicio;
 
-        public FrmNuevoArticulo()
+        public FrmNuevoArticulo(FabricarServicio fabrica)
         {
             InitializeComponent();
+            servicio = fabrica.CrearServicio();
         }
 
         private void FrmNuevoArticulo_Load(object sender, EventArgs e)
         {
-            daoArticulos = new ArticulosDAO();
             CargarLista();
             Limpiar();
         }
@@ -33,7 +35,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
         {
             lstArticulos.Items.Clear();
 
-            daoArticulos.ListarArticulos().ForEach((articulo) => lstArticulos.Items.Add(articulo));
+            servicio.ListarArticulos().ForEach((articulo) => lstArticulos.Items.Add(articulo));
         }
 
         private void Limpiar()
@@ -72,7 +74,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 articulo.Descripcion = $"{txtBoxDescripcion.Text} x {numUnidades.Value}U";
                 articulo.PrecioUnitario = Convert.ToDouble(numPrecio.Value);
 
-                if (daoArticulos.AgregarArticulo(articulo))
+                if (servicio.AgregarArticulo(articulo))
                 {
                     MessageBox.Show("El articulo ha si agregado con exito.", "CONFIRMACION", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

@@ -1,5 +1,7 @@
 ﻿using Facturacion_Problema_1_2.Datos.Implementacion;
+using Facturacion_Problema_1_2.Datos.Servicio;
 using Facturacion_Problema_1_2.Entidades;
+using Facturacion_Problema_1_2.Factory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +16,16 @@ namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmNuevoCliente : Form
     {
-        private ClientesDAO daoClientes;
+        private IServicio servicio;
 
-        public FrmNuevoCliente()
+        public FrmNuevoCliente(FabricarServicio fabrica)
         {
             InitializeComponent();
+            servicio = fabrica.CrearServicio();
         }
 
         private void FrmNuevoCliente_Load(object sender, EventArgs e)
         {
-            daoClientes = new ClientesDAO();
             CargarLista();
             Limpiar();
         }
@@ -32,7 +34,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
         {
             lstClientes.Items.Clear();
 
-            daoClientes.ListarClientes().ForEach((cliente) => lstClientes.Items.Add(cliente));
+            servicio.ListarClientes().ForEach((cliente) => lstClientes.Items.Add(cliente));
         }
 
         private void Limpiar()
@@ -66,7 +68,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 cliente.Apellido = txtBoxApellido.Text;
                 cliente.Nombre = txtBoxNombre.Text;
 
-                if (daoClientes.AgregarCliente(cliente))
+                if (servicio.AgregarCliente(cliente))
                 {
                     MessageBox.Show("El cliente ha si agregado con exito.", "CONFIRMACION", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
