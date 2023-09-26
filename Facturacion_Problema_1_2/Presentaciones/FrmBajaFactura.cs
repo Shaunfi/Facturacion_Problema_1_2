@@ -1,6 +1,8 @@
 ﻿using Facturacion_Problema_1_2.Datos;
 using Facturacion_Problema_1_2.Datos.Implementacion;
+using Facturacion_Problema_1_2.Datos.Servicio;
 using Facturacion_Problema_1_2.Entidades;
+using Facturacion_Problema_1_2.Factory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,16 +17,16 @@ namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmBajaFactura : Form
     {
-        private FacturasDAO daoFacturas;
+        private IServicio servicio;
 
-        public FrmBajaFactura()
+        public FrmBajaFactura(FabricarServicio fabrica)
         {
             InitializeComponent();
+            servicio = fabrica.CrearServicio();
         }
 
         private void FrmBajaFactura_Load(object sender, EventArgs e)
-        {
-            daoFacturas = new FacturasDAO();
+        { 
             CargarComboBox(cboBoxCliente, "cod_cliente", "nombre_completo", "SP_CONSULTAR_TABLA_Clientes");
         }
 
@@ -45,7 +47,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 Facturas factura = (Facturas)lstFacturas.SelectedItem;
                 if (MessageBox.Show($"Desea eliminar la factura {factura.NroFactura} ?", "ELIMINAR", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    if (daoFacturas.BajaFactura(factura))
+                    if (servicio.BajaFactura(factura))
                     {
                         lstFacturas.Items.Remove(lstFacturas.SelectedItem);
                         MessageBox.Show("Factura eliminada con exito.", "CONFIRMACION", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -92,7 +94,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
         private void CargarLista(Clientes cliente, DateTime fecha)
         {
             lstFacturas.Items.Clear();
-            daoFacturas.ListarFacturas(cliente, fecha).ForEach((factura) => lstFacturas.Items.Add(factura) );
+            servicio.ListarFacturas(cliente, fecha).ForEach((factura) => lstFacturas.Items.Add(factura) );
         }
     }
 }

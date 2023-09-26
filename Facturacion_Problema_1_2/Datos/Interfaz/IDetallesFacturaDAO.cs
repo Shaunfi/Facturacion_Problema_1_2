@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion_Problema_1_2.Datos.Interfaz
 {
-    interface IDetallesFactura
+    interface IDetallesFacturaDAO
     {
         void CrearDetalle(Facturas factura, SqlTransaction t);
     }

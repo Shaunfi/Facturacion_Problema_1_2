@@ -1,6 +1,8 @@
 ﻿using Facturacion_Problema_1_2.Datos;
 using Facturacion_Problema_1_2.Datos.Implementacion;
+using Facturacion_Problema_1_2.Datos.Servicio;
 using Facturacion_Problema_1_2.Entidades;
+using Facturacion_Problema_1_2.Factory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,35 +13,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmFactura : Form
     {
-        private Clientes cliente;
-
         private Facturas factura;
 
-        private FacturasDAO daoFactura;
+        private IServicio servicio;
         
-        public FrmFactura()
+        public FrmFactura(FabricarServicio fabrica)
         {
             InitializeComponent();
             factura = new Facturas();
-            daoFactura = new FacturasDAO();
+            servicio = fabrica.CrearServicio();
         }
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
             btnConfirmar.Enabled = false;
             btnCancelar.Enabled = false;
-            CargarComboBox(cboBoxCliente, "cod_cliente", "nombre_completo", "SP_CONSULTAR_TABLA_Clientes");
-            CargarComboBox(cboBoxArticulo, "id_articulo", "descripcion", "SP_CONSULTAR_TABLA_Articulos");
-            CargarComboBox(cboBoxFormasPago, "id_forma_pago", "forma_pago", "SP_CONSULTAR_TABLA_FormasPago");
+            CargarComboBox(cboBoxCliente, "codCliente", "nombre", servicio.ListarClientes().ToArray());
+            CargarComboBox(cboBoxArticulo, "idArticulo", "descripcion", servicio.ListarArticulos().ToArray());
+            CargarCombo(cboBoxFormasPago, "id_forma_pago", "forma_pago", "SP_CONSULTAR_TABLA_FormasPago");
             Limpiar();
         }
 
-        private void CargarComboBox(ComboBox combo, string valorID, string valorDisplay, string nombreSP)
+        private void CargarComboBox(ComboBox combo, string valorID, string valorDisplay, object[] objects)
+        {
+            combo.DataSource = objects;
+            combo.ValueMember = valorID;
+            combo.DisplayMember = valorDisplay;
+            combo.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        private void CargarCombo(ComboBox combo, string valorID, string valorDisplay, string nombreSP) // Se supone que esto estaria mal pero no voy hacer una clase para FormasPago
         {
             DataTable tabla = AccesoDatosDAO.ObtenerInstancia().ProcedureReader(nombreSP);
 
@@ -93,37 +102,32 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            DataRowView c = (DataRowView)cboBoxCliente.SelectedItem;
+            Clientes cliente = (Clientes)cboBoxCliente.SelectedItem;
 
             if (Validar())
             {
-                if (cliente == null)
+                if (factura.Cliente == null)
                 {
-                    if (MessageBox.Show($"Seguro quiere seleccionar el cliente {c.Row.ItemArray[1]} {c.Row.ItemArray[2]} ?", "Confirmar Cliente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Cancel)
+                    if (MessageBox.Show($"Seguro quiere seleccionar el cliente {cliente.Apellido} {cliente.Nombre} ?", "Confirmar Cliente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Cancel)
                     {
                         cboBoxCliente.SelectedIndex = -1;
                         return;
                     }
 
                     cboBoxCliente.Enabled = false;
-                    cliente = new Clientes();
-
-                    cliente.CodCliente = Convert.ToInt32(c.Row.ItemArray[0]);
-                    cliente.Apellido = c.Row.ItemArray[1].ToString();
-                    cliente.Nombre = c.Row.ItemArray[2].ToString();
 
                     factura.Cliente = cliente;
                 }
 
-                DataRowView a = (DataRowView)cboBoxArticulo.SelectedItem;
+                Articulos articulo = (Articulos)cboBoxArticulo.SelectedItem;
 
                 foreach (DataGridViewRow row in dgvDetalles.Rows)
                 {
-                    if (row.Cells["cIdDescripcion"].Value == a.Row.ItemArray[1]) 
+                    if (Convert.ToInt32(row.Cells["cIdIdArticulo"].Value) == articulo.IdArticulo) 
                     {
                         if (Convert.ToInt32(row.Cells["cIdCantidad"].Value) + Convert.ToInt32(numCantidad.Value) < 20)
                         {
-                            if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} unidades al articulo {a.Row.ItemArray[1]} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                            if (MessageBox.Show($"Ya esta en la lista ese articulo. Desea agregar {numCantidad.Value} unidades al articulo {articulo.Descripcion} ?", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.OK)
                             {
 
                                 foreach (DetallesFactura df in factura.LDetalle)
@@ -150,13 +154,6 @@ namespace Facturacion_Problema_1_2.Presentaciones
                         }
                     }
                 }
-
-                Articulos articulo = new Articulos();
-
-                articulo.IdArticulo = Convert.ToInt32(a.Row.ItemArray[0]);
-                articulo.Descripcion = a.Row.ItemArray[1].ToString();
-                articulo.PrecioUnitario = Convert.ToDouble(a.Row.ItemArray[2]); ;
-
 
                 DetallesFactura detalle = new DetallesFactura();
 
@@ -188,7 +185,7 @@ namespace Facturacion_Problema_1_2.Presentaciones
                 if (MessageBox.Show($"Quiere dar la factura por finalizada ?", "Confirmar Factura", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     factura.FormaPago = Convert.ToInt32(cboBoxFormasPago.SelectedValue);
-                    if (daoFactura.CrearFactura(factura))
+                    if (servicio.CrearFactura(factura))
                     {
                         MessageBox.Show("La factura ha sido agregado con exito.", "CONFIRMACION", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         

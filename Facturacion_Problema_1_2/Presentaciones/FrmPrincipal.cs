@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Facturacion_Problema_1_2.Factory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,12 @@ namespace Facturacion_Problema_1_2.Presentaciones
 {
     public partial class FrmPrincipal : Form
     {
-        public FrmPrincipal()
+        private FabricarServicio fabrica;
+
+        public FrmPrincipal(FabricarServicio fabrica)
         {
             InitializeComponent();
-        }
-
-        private void nuevaFacturaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FrmFactura().ShowDialog();
+            this.fabrica = fabrica;
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -27,19 +26,24 @@ namespace Facturacion_Problema_1_2.Presentaciones
 
         }
 
+        private void nuevaFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmFactura(fabrica).ShowDialog();
+        }
+
         private void nuevoArticuloToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FrmNuevoArticulo().ShowDialog();
+            new FrmNuevoArticulo(fabrica).ShowDialog();
         }
 
         private void nuevoClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FrmNuevoCliente().ShowDialog();
+            new FrmNuevoCliente(fabrica).ShowDialog();
         }
 
         private void bajaFacturaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FrmBajaFactura().ShowDialog();
+            new FrmBajaFactura(fabrica).ShowDialog();
         }
     }
 }
